@@ -1,6 +1,7 @@
 package com.gerenciador.contas.service;
 
 import com.gerenciador.contas.enumeration.Status;
+import com.gerenciador.contas.enumeration.Tipo;
 import com.gerenciador.contas.model.ContaResponse;
 import com.gerenciador.contas.model.ContasModel;
 import com.gerenciador.contas.repository.ContasRepository;
@@ -19,8 +20,6 @@ public class ContasService {
 
     @Autowired
     private ContasRepository contasRepository;
-
-
 
 
     public ContasModel adicionarConta(ContasModel contasModel) {
@@ -54,29 +53,30 @@ public class ContasService {
         return novaListaContas;
     }
 
-    public Optional<ContasModel> buscarUmaContaPorId(Long id){
+    public Optional<ContasModel> buscarUmaContaPorId(Long id) {
         return contasRepository.findById(id);
     }
 
-    public ContasModel alterarStatus(ContasModel contasModel){
+    public ContasModel alterarStatus(ContasModel contasModel) {
 
-        if (contasModel.getStatusDePagamento() == Status.PAGA){
+        if (contasModel.getStatusDePagamento() == Status.PAGA) {
             contasModel.setDataDePagamento(LocalDateTime.now());
         }
-            return contasRepository.save(contasModel);
-        }}
+        return contasRepository.save(contasModel);
+    }
 
-//    public ContasModel mostrarPorStatus(){
-//
-//    }
-//
-//    public ContasModel mostrarPorTipo(){
-//
-//    }
+
+    public List<ContasModel> mostrarPorStatus(Status status) {
+        return contasRepository.findByStatusDePagamento(status);
+    }
+
+    public List<ContasModel> mostrarPorTipo(Tipo tipo){
+        return contasRepository.findByTipoDePagamento(tipo);
+    }
 //
 //    public ContasModel deletarConta(){
 //
 //    }
 
-
+}
 

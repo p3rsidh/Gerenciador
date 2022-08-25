@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.jpa.repository.Query;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -38,6 +39,7 @@ public class ContasModel {
 
     @Column(nullable = false)
     private Tipo tipoPagamento;
+
 
     @Column
     private Status statusDePagamento;

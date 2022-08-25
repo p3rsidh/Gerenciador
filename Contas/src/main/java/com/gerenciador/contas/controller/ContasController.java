@@ -1,5 +1,7 @@
 package com.gerenciador.contas.controller;
 
+import com.gerenciador.contas.enumeration.Status;
+import com.gerenciador.contas.enumeration.Tipo;
 import com.gerenciador.contas.model.ContaResponse;
 import com.gerenciador.contas.model.ContasModel;
 import com.gerenciador.contas.service.ContasService;
@@ -7,9 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.HttpClientErrorException;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class ContasController {
@@ -29,13 +31,27 @@ public class ContasController {
 
     }
 
+    @GetMapping(path = "/contas/{id}")
+    public Optional<ContasModel> buscarContaEspecificaPorId(Long id){
+        return contasService.buscarUmaContaPorId(id);
+    }
+
+    @GetMapping(path = "/contas/{status}")
+    public List<ContasModel> buscarContasPorStatus(Status status){
+        return contasService.mostrarPorStatus(status);
+    }
+
+    @GetMapping(path = "/contas/{tipo}")
+    public List<ContasModel> buscarContasPorTipo(Tipo tipo){
+        return contasService.mostrarPorTipo(tipo);
+    }
     @PutMapping(path = "/contas/{id}")
     public ResponseEntity<ContasModel> informarPagamento(@RequestBody ContasModel contasModel, @PathVariable Long id){
 
         if (contasService.buscarUmaContaPorId(id).isPresent()){
             return ResponseEntity.ok(contasService.alterarStatus(contasModel));
         } else{
-            return new ResponseEntity<ContasModel>(HttpStatus.NOT_FOUND);
+            return
         }
 
 
