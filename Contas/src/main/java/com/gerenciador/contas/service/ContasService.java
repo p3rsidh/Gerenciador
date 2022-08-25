@@ -53,9 +53,8 @@ public class ContasService {
     }
 
     public ContasModel alterarStatus(ContasModel contasModel){
-        contasModel.getCodigo();
-        contasModel.setStatusDePagamento(Status.valueOf("PAGA"));
         contasModel.setDataDePagamento(LocalDateTime.now());
+        contasModel.setStatusDePagamento(Status.PAGA);
         return contasRepository.save(contasModel);
     }
 
