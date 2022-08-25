@@ -1,8 +1,8 @@
-package com.contasPagasEAPagar.Contas.controller;
+package com.gerenciador.contas.controller;
 
-import com.contasPagasEAPagar.Contas.model.ContaResponse;
-import com.contasPagasEAPagar.Contas.model.ContasModel;
-import com.contasPagasEAPagar.Contas.service.ContasService;
+import com.gerenciador.contas.model.ContaResponse;
+import com.gerenciador.contas.model.ContasModel;
+import com.gerenciador.contas.service.ContasService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

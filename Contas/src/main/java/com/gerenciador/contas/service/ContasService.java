@@ -1,9 +1,9 @@
-package com.contasPagasEAPagar.Contas.service;
+package com.gerenciador.contas.service;
 
-import com.contasPagasEAPagar.Contas.enumeration.Status;
-import com.contasPagasEAPagar.Contas.model.ContaResponse;
-import com.contasPagasEAPagar.Contas.model.ContasModel;
-import com.contasPagasEAPagar.Contas.repository.ContasRepository;
+import com.gerenciador.contas.enumeration.Status;
+import com.gerenciador.contas.model.ContaResponse;
+import com.gerenciador.contas.model.ContasModel;
+import com.gerenciador.contas.repository.ContasRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,12 +22,6 @@ public class ContasService {
 
 
     public ContasModel adicionarConta(ContasModel contasModel) {
-
-        contasModel.getCodigo();
-        contasModel.getNome();
-        contasModel.getValor();
-        contasModel.getTipoPagamento();
-        contasModel.getDataDeVencimento();
 
         LocalDate horaCadastro = LocalDate.now();
         if (contasModel.getDataDeVencimento() != null) {

@@ -1,6 +1,6 @@
-package com.contasPagasEAPagar.Contas.repository;
+package com.gerenciador.contas.repository;
 
-import com.contasPagasEAPagar.Contas.model.ContasModel;
+import com.gerenciador.contas.model.ContasModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

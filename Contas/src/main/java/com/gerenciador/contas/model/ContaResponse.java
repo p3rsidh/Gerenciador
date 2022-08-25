@@ -1,6 +1,6 @@
-package com.contasPagasEAPagar.Contas.model;
+package com.gerenciador.contas.model;
 
-import com.contasPagasEAPagar.Contas.enumeration.Status;
+import com.gerenciador.contas.enumeration.Status;
 import lombok.Data;
 
 @Data

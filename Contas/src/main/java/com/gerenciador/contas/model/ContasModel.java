@@ -1,8 +1,8 @@
-package com.contasPagasEAPagar.Contas.model;
+package com.gerenciador.contas.model;
 
 
-import com.contasPagasEAPagar.Contas.enumeration.Status;
-import com.contasPagasEAPagar.Contas.enumeration.Tipo;
+import com.gerenciador.contas.enumeration.Status;
+import com.gerenciador.contas.enumeration.Tipo;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
