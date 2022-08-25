@@ -1,8 +1,8 @@
-package com.contasPagasEAPagar.Contas.Contas_Model;
+package com.contasPagasEAPagar.Contas.model;
 
 
-import com.contasPagasEAPagar.Contas.ENUM.Status;
-import com.contasPagasEAPagar.Contas.ENUM.Tipo;
+import com.contasPagasEAPagar.Contas.enumeration.Status;
+import com.contasPagasEAPagar.Contas.enumeration.Tipo;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -34,7 +34,7 @@ public class ContasModel {
     private LocalDate dataDeVencimento;
 
     @Column
-    private LocalDate dataDePagamento;
+    private LocalDateTime dataDePagamento;
 
     @Column
     private Tipo tipoPagamento;
