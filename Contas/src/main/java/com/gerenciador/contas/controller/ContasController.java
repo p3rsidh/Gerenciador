@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpClientErrorException;
+
 
 import java.util.List;
 import java.util.Optional;
@@ -45,16 +47,20 @@ public class ContasController {
     public List<ContasModel> buscarContasPorTipo(Tipo tipo){
         return contasService.mostrarPorTipo(tipo);
     }
+
+
     @PutMapping(path = "/contas/{id}")
-    public ResponseEntity<ContasModel> informarPagamento(@RequestBody ContasModel contasModel, @PathVariable Long id){
+    public ResponseEntity<ContasModel> informarPagamento(@RequestBody ContasModel contasModel, @PathVariable Long id) {
 
         if (contasService.buscarUmaContaPorId(id).isPresent()){
             return ResponseEntity.ok(contasService.alterarStatus(contasModel));
-        } else{
-            return
+        }else {
+
+            return (ResponseEntity<ContasModel>) ResponseEntity.notFound();
         }
 
 
-    }
 
-}
+
+    }}
+

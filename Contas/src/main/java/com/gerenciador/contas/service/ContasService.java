@@ -71,7 +71,7 @@ public class ContasService {
     }
 
     public List<ContasModel> mostrarPorTipo(Tipo tipo){
-        return contasRepository.findByTipoDePagamento(tipo);
+        return contasRepository.findByTipoPagamento(tipo);
     }
 //
 //    public ContasModel deletarConta(){
