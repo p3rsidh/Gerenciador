@@ -54,12 +54,16 @@ public class ContasService {
         return novaListaContas;
     }
 
-    public ContasModel alterarStatus(ContasModel id){
+    public Optional<ContasModel> buscarUmaContaPorId(Long id){
+        return contasRepository.findById(id);
+    }
 
-        if (id.getStatusDePagamento() == Status.PAGA){
-            id.setDataDePagamento(LocalDateTime.now());
+    public ContasModel alterarStatus(ContasModel contasModel){
+
+        if (contasModel.getStatusDePagamento() == Status.PAGA){
+            contasModel.setDataDePagamento(LocalDateTime.now());
         }
-            return contasRepository.save(id);
+            return contasRepository.save(contasModel);
         }}
 
 //    public ContasModel mostrarPorStatus(){

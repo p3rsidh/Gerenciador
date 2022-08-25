@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpClientErrorException;
 
 import java.util.List;
 
@@ -29,12 +30,15 @@ public class ContasController {
     }
 
     @PutMapping(path = "/contas/{id}")
-    public ResponseEntity<ContasModel> informarPagamento(@RequestBody ContasModel id){
-        if(contasService.listarContas().contains(id)) {
-            return ResponseEntity.ok(contasService.alterarStatus(id));
-        }else {
+    public ResponseEntity<ContasModel> informarPagamento(@RequestBody ContasModel contasModel, @PathVariable Long id){
 
+        if (contasService.buscarUmaContaPorId(id).isPresent()){
+            return ResponseEntity.ok(contasService.alterarStatus(contasModel));
+        } else{
+            return new ResponseEntity<ContasModel>(HttpStatus.NOT_FOUND);
         }
+
+
     }
 
 }
