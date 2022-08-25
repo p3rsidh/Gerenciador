@@ -27,8 +27,8 @@ public class ContasController {
     }
 
     @PutMapping(path = "/contas/{id}")
-    public ContasModel informarPagamento(@RequestBody ContasModel contasModel){
-       return contasService.alterarStatus(contasModel);
+    public ContasModel informarPagamento(@RequestBody ContasModel id){
+       return contasService.alterarStatus(id);
     }
 
 }
