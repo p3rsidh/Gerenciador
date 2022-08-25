@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,26 +38,26 @@ public class ContasService {
     public List<ContaResponse> listarContas() {
 
         List<ContaResponse> novaListaContas = new ArrayList<>();
-        ContaResponse contaResponse = new ContaResponse();
-
         List<ContasModel> contasModelList = contasRepository.findAll();
+
         for (ContasModel conta : contasModelList) {
+            ContaResponse contaResponse = new ContaResponse();
             contaResponse.setCodigo(conta.getCodigo());
             contaResponse.setNome(conta.getNome());
             contaResponse.setValor(conta.getValor());
             contaResponse.setStatusDePagamento(conta.getStatusDePagamento());
             novaListaContas.add(contaResponse);
         }
+
         return novaListaContas;
     }
 
+    public ContasModel alterarStatus(ContasModel contasModel){
+        contasModel.setStatusDePagamento(Status.valueOf("PAGA"));
+        contasModel.setDataDePagamento(LocalDateTime.now());
+        return contasRepository.save(contasModel);
+    }
 
-//    public List<ContasModelCliente> mostrarContas(ContasModelCliente cliente) {
-////       return contasRepository.findAll(contasModel.getCodigo(), contasModel.getNome(), contasModel.getValor(), contasModel.getStatusDePagamento());
-//
-//        return ContasCliente.listaContas;
-//    }
-//////
 //    public ContasModel mostrarPorStatus(){
 //
 //    }

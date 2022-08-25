@@ -24,4 +24,11 @@ public class ContasController {
     public List<ContaResponse> mostrarContas(){
         return contasService.listarContas();
 
-    }}
+    }
+
+    @PutMapping(path = "/contas/{id}")
+    public ContasModel informarPagamento(@RequestBody ContasModel contasModel){
+       return contasService.alterarStatus(contasModel);
+    }
+
+}

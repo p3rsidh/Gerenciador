@@ -24,10 +24,9 @@ public class ContasModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long codigo;
 
-    @Column(nullable = false)
-    private String nome;
+    @Column(nullable = false) String nome;
 
-    @Column(nullable = false)
+    @Column
     private Double valor;
 
     @Column
