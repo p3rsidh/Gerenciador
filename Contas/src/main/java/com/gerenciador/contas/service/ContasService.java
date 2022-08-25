@@ -11,6 +11,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -42,6 +43,7 @@ public class ContasService {
 
         for (ContasModel conta : contasModelList) {
             ContaResponse contaResponse = new ContaResponse();
+
             contaResponse.setCodigo(conta.getCodigo());
             contaResponse.setNome(conta.getNome());
             contaResponse.setValor(conta.getValor());
@@ -52,11 +54,13 @@ public class ContasService {
         return novaListaContas;
     }
 
-    public ContasModel alterarStatus(ContasModel contasModel){
-        contasModel.setDataDePagamento(LocalDateTime.now());
-        contasModel.setStatusDePagamento(Status.PAGA);
-        return contasRepository.save(contasModel);
-    }
+    public ContasModel alterarStatus(ContasModel id){
+
+        if (id.getStatusDePagamento() == Status.PAGA){
+            id.setDataDePagamento(LocalDateTime.now());
+        }
+            return contasRepository.save(id);
+        }}
 
 //    public ContasModel mostrarPorStatus(){
 //
@@ -71,4 +75,4 @@ public class ContasService {
 //    }
 
 
-}
+

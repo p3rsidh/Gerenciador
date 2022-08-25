@@ -24,18 +24,19 @@ public class ContasModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long codigo;
 
-    @Column(nullable = false) String nome;
+    @Column(nullable = false)
+    String nome;
 
-    @Column
+    @Column(nullable = false)
     private Double valor;
 
-    @Column
+    @Column(nullable = false)
     private LocalDate dataDeVencimento;
 
     @Column
     private LocalDateTime dataDePagamento;
 
-    @Column
+    @Column(nullable = false)
     private Tipo tipoPagamento;
 
     @Column
