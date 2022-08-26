@@ -5,6 +5,7 @@ import com.gerenciador.contas.enumeration.Tipo;
 import com.gerenciador.contas.model.ContaResponse;
 import com.gerenciador.contas.model.ContasModel;
 import com.gerenciador.contas.repository.ContasRepository;
+import net.bytebuddy.implementation.bytecode.Throw;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,10 +38,73 @@ public class ContasService {
 
     public List<ContaResponse> listarContas() {
 
-        List<ContaResponse> novaListaContas = new ArrayList<>();
-        List<ContasModel> contasModelList = contasRepository.findAll();
+        if (contasRepository.findAll().size() >0) {
+            List<ContaResponse> novaListaContas = new ArrayList<>();
+            List<ContasModel> contasModelList = contasRepository.findAll();
 
-        for (ContasModel conta : contasModelList) {
+            for (ContasModel conta : contasModelList) {
+                ContaResponse contaResponse = new ContaResponse();
+
+                contaResponse.setCodigo(conta.getCodigo());
+                contaResponse.setNome(conta.getNome());
+                contaResponse.setValor(conta.getValor());
+                contaResponse.setStatusDePagamento(conta.getStatusDePagamento());
+                novaListaContas.add(contaResponse);
+            }
+
+            return novaListaContas;
+        } else {
+           return contasRepository.findAll().isEmpty().Throw(() -> new CityNotFoundException(id));
+        }
+      }
+
+    public Optional<ContasModel> buscarUmaContaPorId(Long id) {
+
+
+        if (contasRepository.findById(id).isPresent()) {
+            return contasRepository.findById(id);
+        }else {
+        return null;
+    }}
+
+    public ContasModel alterarStatus(String status, Long id) {
+
+
+       Optional<ContasModel> contasModel = contasRepository.findById(id);
+
+        if(contasModel != null && status.contains("PAGA")){
+
+            contasModel.get().setStatusDePagamento(Status.PAGA);
+            contasModel.get().setDataDePagamento(LocalDateTime.now());
+
+            return contasRepository.save(contasModel.get());
+
+        }
+    return null;
+    }
+
+
+   public List<ContaResponse> mostrarPorStatus(String status) {
+
+    List<ContaResponse> novaListaContas = new ArrayList<>();
+    List<ContasModel> status1 =  contasRepository.findByStatusDePagamento(Status.valueOf(status));
+        for (ContasModel conta : status1) {
+        ContaResponse contaResponse = new ContaResponse();
+
+        contaResponse.setCodigo(conta.getCodigo());
+        contaResponse.setNome(conta.getNome());
+        contaResponse.setValor(conta.getValor());
+        contaResponse.setStatusDePagamento(conta.getStatusDePagamento());
+        novaListaContas.add(contaResponse);
+    }
+        return novaListaContas;
+    }
+
+    public List<ContaResponse> mostrarPorTipo(String tipo){
+
+        List<ContaResponse> novaListaContas = new ArrayList<>();
+        List<ContasModel> tipo1 =  contasRepository.findByTipoPagamento(Tipo .valueOf(tipo));
+        for (ContasModel conta : tipo1) {
             ContaResponse contaResponse = new ContaResponse();
 
             contaResponse.setCodigo(conta.getCodigo());
@@ -49,29 +113,7 @@ public class ContasService {
             contaResponse.setStatusDePagamento(conta.getStatusDePagamento());
             novaListaContas.add(contaResponse);
         }
-
         return novaListaContas;
-    }
-
-    public Optional<ContasModel> buscarUmaContaPorId(Long id) {
-        return contasRepository.findById(id);
-    }
-
-    public ContasModel alterarStatus(ContasModel contasModel) {
-
-        if (contasModel.getStatusDePagamento() == Status.PAGA) {
-            contasModel.setDataDePagamento(LocalDateTime.now());
-        }
-        return contasRepository.save(contasModel);
-    }
-
-
-    public List<ContasModel> mostrarPorStatus(Status status) {
-        return contasRepository.findByStatusDePagamento(status);
-    }
-
-    public List<ContasModel> mostrarPorTipo(Tipo tipo){
-        return contasRepository.findByTipoPagamento(tipo);
     }
 //
 //    public ContasModel deletarConta(){

@@ -28,39 +28,31 @@ public class ContasController {
     }
 
     @GetMapping(path = "/contas")
-    public List<ContaResponse> mostrarContas(){
-        return contasService.listarContas();
-
-    }
-
-    @GetMapping(path = "/contas/{id}")
-    public Optional<ContasModel> buscarContaEspecificaPorId(Long id){
-        return contasService.buscarUmaContaPorId(id);
-    }
-
-    @GetMapping(path = "/contas/{status}")
-    public List<ContasModel> buscarContasPorStatus(Status status){
-        return contasService.mostrarPorStatus(status);
-    }
-
-    @GetMapping(path = "/contas/{tipo}")
-    public List<ContasModel> buscarContasPorTipo(Tipo tipo){
-        return contasService.mostrarPorTipo(tipo);
+    public ResponseEntity<List<ContaResponse>> mostrarContas(){
+        return ResponseEntity.ok(contasService.listarContas());
     }
 
 
     @PutMapping(path = "/contas/{id}")
-    public ResponseEntity<ContasModel> informarPagamento(@RequestBody ContasModel contasModel, @PathVariable Long id) {
+    public ResponseEntity<ContasModel> informarPagamento(@RequestBody String status, @PathVariable Long id) {
+        return ResponseEntity.ok(contasService.alterarStatus(status, id));
+    }
 
-        if (contasService.buscarUmaContaPorId(id).isPresent()){
-            return ResponseEntity.ok(contasService.alterarStatus(contasModel));
-        }else {
+    @GetMapping(path = "/contas/{id}")
+    public ResponseEntity<Optional<ContasModel>> buscarContaEspecificaPorId(@PathVariable Long id){
+        return ResponseEntity.ok(contasService.buscarUmaContaPorId(id));
+    }
 
-            return (ResponseEntity<ContasModel>) ResponseEntity.notFound();
-        }
+    @GetMapping(path = "/contasPorStatus/{status}")
+    public List<ContaResponse> buscarContasPorStatus(@PathVariable String status){
+        return contasService.mostrarPorStatus(status);
+    }
+
+    @GetMapping(path = "/contasPorTipo/{tipo}")
+    public List<ContaResponse> buscarContasPorTipo(@PathVariable String tipo){
+        return contasService.mostrarPorTipo(tipo);
+    }
 
 
-
-
-    }}
+   }
 

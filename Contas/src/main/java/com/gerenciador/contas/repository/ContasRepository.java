@@ -6,11 +6,12 @@ import com.gerenciador.contas.model.ContasModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.Enumeration;
 import java.util.List;
 
 @Repository
 public interface ContasRepository extends JpaRepository<ContasModel, Long> {
+
+
     public List<ContasModel> findByStatusDePagamento(Status status);
     public List<ContasModel> findByTipoPagamento(Tipo tipo);
 }
