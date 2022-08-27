@@ -5,10 +5,7 @@ import com.gerenciador.contas.enumeration.Tipo;
 import com.gerenciador.contas.model.ContaResponse;
 import com.gerenciador.contas.model.ContasModel;
 import com.gerenciador.contas.repository.ContasRepository;
-import org.springframework.beans.NullValueInNestedPathException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -112,10 +109,11 @@ public class ContasService {
         }
         return novaListaContas;
     }
-//
-//    public ContasModel deletarConta(){
-//
-//    }
+
+    public List<ContaResponse> deletarConta(Long id){
+        contasRepository.deleteById(id);
+        return listarContas();
+    }
 
 }
 
