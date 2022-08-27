@@ -5,8 +5,10 @@ import com.gerenciador.contas.enumeration.Tipo;
 import com.gerenciador.contas.model.ContaResponse;
 import com.gerenciador.contas.model.ContasModel;
 import com.gerenciador.contas.repository.ContasRepository;
-import net.bytebuddy.implementation.bytecode.Throw;
+import org.springframework.beans.NullValueInNestedPathException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -38,9 +40,8 @@ public class ContasService {
 
     public List<ContaResponse> listarContas() {
 
-        if (contasRepository.findAll().size() >0) {
-            List<ContaResponse> novaListaContas = new ArrayList<>();
-            List<ContasModel> contasModelList = contasRepository.findAll();
+        List<ContaResponse> novaListaContas = new ArrayList<>();
+        List<ContasModel> contasModelList = contasRepository.findAll();
 
             for (ContasModel conta : contasModelList) {
                 ContaResponse contaResponse = new ContaResponse();
@@ -53,19 +54,15 @@ public class ContasService {
             }
 
             return novaListaContas;
-        } else {
-           return contasRepository.findAll().isEmpty().Throw(() -> new CityNotFoundException(id));
-        }
-      }
+
+    }
+
 
     public Optional<ContasModel> buscarUmaContaPorId(Long id) {
 
-
-        if (contasRepository.findById(id).isPresent()) {
             return contasRepository.findById(id);
-        }else {
-        return null;
-    }}
+
+    }
 
     public ContasModel alterarStatus(String status, Long id) {
 
