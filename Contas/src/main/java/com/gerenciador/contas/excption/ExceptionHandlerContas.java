@@ -1,28 +1,19 @@
 package com.gerenciador.contas.excption;
 
-import org.apache.coyote.Response;
-import org.hibernate.cfg.internal.NullableDiscriminatorColumnSecondPass;
-import org.hibernate.service.NullServiceException;
-import org.springframework.boot.context.config.ConfigDataResourceNotFoundException;
-import org.springframework.cache.support.NullValue;
-import org.springframework.http.HttpMessage;
-import org.springframework.http.HttpOutputMessage;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
-import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.client.UnknownHttpStatusCodeException;
-import javax.lang.model.type.NullType;
-import javax.naming.NotContextException;
+
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.nio.file.AccessDeniedException;
+import java.awt.event.FocusEvent;
 import java.util.NoSuchElementException;
 
 @RestControllerAdvice
 public class ExceptionHandlerContas {
+
+
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<String> exceptionHandlerValorInvalido(HttpMessageNotReadableException exception, HttpServletRequest request){
@@ -30,16 +21,14 @@ public class ExceptionHandlerContas {
     }
 
     @ExceptionHandler(NoSuchElementException.class)
-
-    public ResponseEntity<String> exceptionHandlerObjetoNaoEncontrado( NoSuchElementException notFound, HttpServletRequest request){
-        return new ResponseEntity<>("Sua busca não encontrou resultados", HttpStatus.NOT_FOUND);
+    public ResponseEntity<String> exceptionHandlerObjetoNaoEncontrado( NoSuchElementException notFound, HttpServletRequest request) {
+        return new ResponseEntity<>("Resultado(s) não encontrado(s)", HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(value = {ResourceNotFOundException.class})
-    @ResponseStatus(value = HttpStatus.NOT_FOUND)
-    public ResponseEntity<String> resourceNotFound(ResourceNotFOundException exception){
-        return new ResponseEntity<>("deu não bro", HttpStatus.NOT_FOUND);
-    }
+    @ExceptionHandler(HttpClientErrorException.class)
+    public ResponseEntity<String> resourceNotFound(HttpClientErrorException notFound, HttpServletRequest servletRequest){
+        return new ResponseEntity<>("Sua lista esta vazia", HttpStatus.NOT_FOUND);
 
+    }
 
 }
