@@ -1,14 +1,17 @@
 package com.gerenciador.contas.model;
 
 import com.sun.istack.NotNull;
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import javax.validation.constraints.Email;
 import java.util.Date;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "usuario")
 public class UsuarioModel {
@@ -21,8 +24,8 @@ public class UsuarioModel {
     @Size(min = 11, max = 11)
     private String CPF;
 
-    @Column(nullable = false, precision = 11)
-    @Email
+    @Column(nullable = false)
+    @Email(message="Please provide a valid email address")
     private String email;
 
     @Column(nullable = false)

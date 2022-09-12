@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface UsuarioRepository extends JpaRepository<UsuarioModel, Long> {
-    public List<UsuarioModel> findByCPF(String CPF);
+//    public List<UsuarioModel> findByCPF(String CPF);
 }
