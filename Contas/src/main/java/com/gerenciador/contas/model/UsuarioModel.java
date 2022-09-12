@@ -6,6 +6,7 @@ import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import javax.validation.constraints.Email;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Getter
@@ -20,17 +21,17 @@ public class UsuarioModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long usuario_id;
 
-    @Column(nullable = false, unique = true)
+    @Column
     @Size(min = 11, max = 11)
     private String CPF;
 
-    @Column(nullable = false)
+    @Column
     @Email(message="Please provide a valid email address")
     private String email;
 
-    @Column(nullable = false)
-    private Date dataNascimento;
+    @Column
+    private LocalDate dataNascimento;
 
-    @Column(nullable = false)
+    @Column
     private String nomeUsuario;
 }

@@ -27,7 +27,7 @@ public class UsuarioService {
         return usuarioRepository.findById(id);
     }
 
-    public UsuarioModel editarUsuario(UsuarioModel usuarioModel){
+    public UsuarioModel editarUsuario(Long id, UsuarioModel usuarioModel){
         return usuarioRepository.save(usuarioModel);
     }
 
