@@ -6,9 +6,7 @@ import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import javax.validation.constraints.Email;
-import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 @Getter
@@ -43,6 +41,6 @@ public class UsuarioModel {
 
     @JsonIgnore
     @OneToMany(mappedBy = "usuario_id", cascade = CascadeType.ALL)
-    private List<ContasAReceber> contas_id;
+    private List<ContasAReceberModel> contas_id;
 
 }
