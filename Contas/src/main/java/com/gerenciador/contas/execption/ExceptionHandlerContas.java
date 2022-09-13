@@ -1,4 +1,4 @@
-package com.gerenciador.contas.excption;
+package com.gerenciador.contas.execption;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
 
 import javax.servlet.http.HttpServletRequest;
-import java.awt.event.FocusEvent;
 import java.util.NoSuchElementException;
 
 @RestControllerAdvice

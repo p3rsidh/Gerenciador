@@ -1,13 +1,15 @@
 package com.gerenciador.contas.model;
 
-import com.sun.istack.NotNull;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import javax.validation.constraints.Email;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -19,7 +21,7 @@ public class UsuarioModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long usuario_id;
+    private Long codigo;
 
     @Column
     @Size(min = 11, max = 11)
@@ -34,4 +36,10 @@ public class UsuarioModel {
 
     @Column
     private String nomeUsuario;
+
+    @JsonIgnore //1
+    @OneToMany(mappedBy = "usuario_id", cascade = CascadeType.ALL)
+    private List<EnderecoModel> endereco_id;
+
+
 }

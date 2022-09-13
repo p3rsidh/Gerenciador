@@ -10,8 +10,6 @@ import java.util.List;
 
 @Repository
 public interface ContasRepository extends JpaRepository<ContasModel, Long> {
-
-
-    public List<ContasModel> findByStatusDePagamento(Status status);
-    public List<ContasModel> findByTipoPagamento(Tipo tipo);
+    List<ContasModel> findByStatusDePagamento(Status status);
+    List<ContasModel> findByTipoPagamento(Tipo tipo);
 }

@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class ContasApplication {
 
 	public static void main(String[] args) {
+
 		SpringApplication.run(ContasApplication.class, args);
 	}
 

@@ -15,7 +15,6 @@ public class UsuarioService {
     private UsuarioRepository usuarioRepository;
 
     public UsuarioModel adicionarUsuario(UsuarioModel usuarioModel){
-
         return usuarioRepository.save(usuarioModel);
     }
 

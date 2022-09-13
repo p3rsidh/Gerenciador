@@ -5,8 +5,6 @@ import com.gerenciador.contas.enumeration.Tipo;
 import com.gerenciador.contas.model.ContaResponse;
 import com.gerenciador.contas.model.ContasModel;
 import com.gerenciador.contas.repository.ContasRepository;
-import org.hibernate.annotations.NotFound;
-import org.springframework.beans.NullValueInNestedPathException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;

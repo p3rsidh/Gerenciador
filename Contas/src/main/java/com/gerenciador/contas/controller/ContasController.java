@@ -1,6 +1,6 @@
 package com.gerenciador.contas.controller;
 
-import com.gerenciador.contas.excption.ExceptionHandlerContas;
+import com.gerenciador.contas.execption.ExceptionHandlerContas;
 import com.gerenciador.contas.model.ContaResponse;
 import com.gerenciador.contas.model.ContasModel;
 import com.gerenciador.contas.service.ContasService;
