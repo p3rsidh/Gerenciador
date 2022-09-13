@@ -14,6 +14,6 @@ import java.util.List;
 public interface ContasAReceberRepository extends JpaRepository<ContasAReceberModel, Long> {
 
    List<ContasAReceberModel> findByStatus(Status status);
-  // List<ContasAReceberModel> findByTipoDeRecebimento(TipoRecebimento tipoRecebimento);
-//    ContasAReceberModel findByDataDeVencimento(LocalDate localDate);
+   List<ContasAReceberModel> findByTipoRecebimento(TipoRecebimento tipoRecebimento);
+   List<ContasAReceberModel> findByDataDeVencimento(LocalDate localDate);
 }

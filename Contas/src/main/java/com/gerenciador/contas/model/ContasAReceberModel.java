@@ -14,8 +14,8 @@ import java.time.LocalDate;
 
 @Data
 @Entity
-@Table(name = "contasreceber")
-public class ContasAReceberModel{
+@Table(name = "contas_receber")
+public class ContasAReceberModel implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,19 +27,19 @@ public class ContasAReceberModel{
     @Column
     private String recebimento;
 
-    @Column
-    private BigDecimal valorRecebido;
+    @Column(nullable = false)
+    private BigDecimal valorRecebimento;
 
-    @Column
+    @Column(nullable = false)
     private TipoRecebimento tipoRecebimento;
 
-    @Column
+    @Column(nullable = false)
     private LocalDate dataDeVencimento;
 
     @Column
     private LocalDate dataDeRecebimento;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JoinColumn(name = "usuario_id", referencedColumnName = "codigo")
     private UsuarioModel usuario_id;
 }

@@ -7,6 +7,8 @@ import javax.persistence.*;
 import javax.validation.constraints.Size;
 import javax.validation.constraints.Email;
 import java.io.Serializable;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -19,18 +21,18 @@ public class UsuarioModel implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long codigo;
 
-    @Column
+    @Column(nullable = false)
     @Size(min = 11, max = 11)
     private String CPF;
 
-    @Column
-    @Email(message="Please provide a valid email address")
+    @Column(nullable = false)
+    @Email(regexp=".+@.+\\..+")
     private String email;
 
-    @Column
+    @Column(nullable = false)
     private LocalDate dataNascimento;
 
-    @Column
+    @Column(nullable = false)
     private String nomeUsuario;
 
     @JsonIgnore //1

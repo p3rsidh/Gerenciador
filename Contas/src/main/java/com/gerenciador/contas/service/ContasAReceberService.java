@@ -20,14 +20,7 @@ public class ContasAReceberService {
 
     public ContasAReceberModel adicionarConta(ContasAReceberModel contasAReceberModel) {
         LocalDate horaCadastro = LocalDate.now();
-
-        if (contasAReceberModel.getDataDeVencimento() != null) {
-            if (horaCadastro.isAfter(contasAReceberModel.getDataDeVencimento())) {
-                contasAReceberModel.setStatus(Status.VENCIDA);
-            } else {
-                contasAReceberModel.setStatus(Status.AGUARDANDO);
-            }
-        }
+        contasAReceberModel.setDataDeRecebimento(horaCadastro);
         return contasAReceberRepository.save(contasAReceberModel);
     }
 
@@ -84,33 +77,31 @@ public class ContasAReceberService {
             throw new HttpClientErrorException(HttpStatus.NOT_FOUND);
         }
 
-//        public ContasAReceberModel mostrarPorTipoDeRebecimento(TipoRecebimento tipo) {
-//
-//            int tamanhoLista = contasAReceberRepository.findAll().size();
-//           // List<ContasAReceberModel> tipo1 = contasAReceberRepository.findByTipoDeRecebimento(tipo);
-//
-//            if (tamanhoLista > 0) {
-//                if (contasAReceberRepository.findAll().isEmpty()){
-//                    throw new NoSuchElementException();
-//                } else
-//                return contasAReceberRepository.findByTipoDeRecebimento(tipo);
-//            } else
-//                throw new HttpClientErrorException(HttpStatus.NO_CONTENT);
-//        }
-//
-//        public ContasAReceberModel mostrarPorDataDeVencimento(LocalDate localDate) {
-//
-//            int tamanhoLista = contasAReceberRepository.findAll().size();
-//          //  List<ContasAReceberModel> tipo1 = contasAReceberRepository.findByDataDeVencimento(localDate);
-//
-//            if (tamanhoLista > 0) {
-//                if (contasAReceberRepository.findAll().isEmpty()){
-//                    throw new NoSuchElementException();
-//                } else
-//                    return contasAReceberRepository.findByDataDeVencimento(localDate);
-//            } else
-//                throw new HttpClientErrorException(HttpStatus.NO_CONTENT);
-//        }
+        public List<ContasAReceberModel> mostrarPorTipoDeRebecimento(TipoRecebimento tipo) {
+
+            int tamanhoLista = contasAReceberRepository.findAll().size();
+           // List<ContasAReceberModel> tipo1 = contasAReceberRepository.findByTipoDeRecebimento(tipo);
+
+            if (tamanhoLista > 0) {
+                if (contasAReceberRepository.findAll().isEmpty()){
+                    throw new NoSuchElementException();
+                } else
+                return contasAReceberRepository.findByTipoRecebimento(tipo);
+            } else
+                throw new HttpClientErrorException(HttpStatus.NO_CONTENT);
+        }
+
+        public List<ContasAReceberModel> mostrarPorDataDeVencimento(LocalDate localDate) {
+            int tamanhoLista = contasAReceberRepository.findAll().size();
+
+            if (tamanhoLista > 0) {
+                if (contasAReceberRepository.findAll().isEmpty()){
+                    throw new NoSuchElementException();
+                } else
+                    return contasAReceberRepository.findByDataDeVencimento(localDate);
+            } else
+                throw new HttpClientErrorException(HttpStatus.NO_CONTENT);
+        }
 
         public HttpStatus deletarConta(Long id){
             int tamanhoLista = contasAReceberRepository.findAll().size();

@@ -1,5 +1,6 @@
 package com.gerenciador.contas.execption;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -7,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.ConstraintViolationException;
 import java.util.NoSuchElementException;
 
 @RestControllerAdvice
@@ -28,6 +30,11 @@ public class ExceptionHandlerContas {
     public ResponseEntity<String> resourceNotFound(HttpClientErrorException notFound, HttpServletRequest servletRequest){
         return new ResponseEntity<>("Sua lista esta vazia", HttpStatus.NOT_FOUND);
 
+    }
+
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<String> valorIncompativel(DataIntegrityViolationException exception, HttpServletRequest request){
+        return new ResponseEntity<>("Os campos não podem ser nulos", HttpStatus.UNPROCESSABLE_ENTITY);
     }
 
 }
