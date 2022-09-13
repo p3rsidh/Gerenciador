@@ -42,8 +42,8 @@ public class ContasAReceberController extends ExceptionHandlerContas {
         return contasAReceberService.alterarConta(contasAReceberModel, id);
     }
 
-    @GetMapping(path = "/contasRecever/{status}")
-    public List<ContasAReceberModel> filtrarPorStatus(@PathVariable Status status){
+    @GetMapping(path = "/contasReceber/{status}")
+    public List<ContasAReceberModel> filtrarPorStatus(@PathVariable String status){
         return contasAReceberService.mostrarPorStatus(status);
     }
 

@@ -56,7 +56,7 @@ public class ContasAReceberService {
         }
 
 
-        public List<ContasAReceberModel> mostrarPorStatus(Status status) {
+        public List<ContasAReceberModel> mostrarPorStatus(String status) {
 
             int tamanhoLista = contasAReceberRepository.findAll().size();
             List<ContasAReceberModel> status1 = contasAReceberRepository.findAll();
@@ -66,7 +66,7 @@ public class ContasAReceberService {
                 if (status1.isEmpty()) {
                     throw new NoSuchElementException();
                 } else {
-                    contasAReceberRepository.findByStatus(status);
+                    contasAReceberRepository.findByStatus(Status.valueOf(status));
 //                    for (ContasAReceberModel conta : status1) {
 //                        if (conta.getStatus().equals(status)) {
 //                            contasStatus.add(conta);
