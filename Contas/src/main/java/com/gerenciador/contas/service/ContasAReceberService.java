@@ -50,22 +50,21 @@ public class ContasAReceberService {
                 throw new NoSuchElementException();
         }
 
-        public ContasAReceberModel alterarConta(String status, Long id) {
+        public ContasAReceberModel alterarConta(ContasAReceberModel contasAReceberModel, Long id) {
 
-           Optional<ContasAReceberModel> contasAReceberModel = contasAReceberRepository.findById(id);
+           Optional<ContasAReceberModel> conta = contasAReceberRepository.findById(id);
 
             if (contasAReceberRepository.findAll().isEmpty()){
                 throw new HttpClientErrorException(HttpStatus.NOT_FOUND);
-            } else if(contasAReceberModel != null && status.contains("PAGA")) {
-
-                return contasAReceberRepository.save(contasAReceberModel.get());
+            } else if(conta != null) {
+                return contasAReceberRepository.save(contasAReceberModel);
             }
             throw new NoSuchElementException();
 
         }
 
 
-        public ListIterator<ContasAReceberModel> mostrarPorStatus(String status) {
+        public List<ContasAReceberModel> mostrarPorStatus(Status status) {
 
             int tamanhoLista = contasAReceberRepository.findAll().size();
             List<ContasAReceberModel> status1 =  contasAReceberRepository.findByStatus(status);
@@ -74,16 +73,16 @@ public class ContasAReceberService {
                 if (status1.isEmpty()){
                     throw new NoSuchElementException();
                 } else {
-                   return status1.listIterator();
+                   return status1;
 
             }}
             throw new HttpClientErrorException(HttpStatus.NOT_FOUND);
         }
 
-        public List<ContasAReceberModel> mostrarPorTipoDeRebecimento(String tipo) {
+        public List<ContasAReceberModel> mostrarPorTipoDeRebecimento(TipoRecebimento tipo) {
 
             int tamanhoLista = contasAReceberRepository.findAll().size();
-            List<ContasAReceberModel> tipo1 = contasAReceberRepository.findByTipoDeRecebimento(TipoRecebimento.valueOf(tipo));
+            List<ContasAReceberModel> tipo1 = contasAReceberRepository.findByTipoDeRecebimento(tipo);
 
             if (tamanhoLista > 0) {
                 if (tipo1.isEmpty()){
@@ -108,7 +107,7 @@ public class ContasAReceberService {
                 throw new HttpClientErrorException(HttpStatus.NO_CONTENT);
         }
 
-        public List<ContasAReceberModel> deletarConta(Long id){
+        public HttpStatus deletarConta(Long id){
             int tamanhoLista = contasAReceberRepository.findAll().size();
             if (tamanhoLista > 0 && contasAReceberRepository.findById(id).isPresent() ){
                 contasAReceberRepository.deleteById(id);
@@ -117,7 +116,7 @@ public class ContasAReceberService {
             } else {
                 throw new HttpClientErrorException(HttpStatus.NOT_FOUND);
             }
-            return listarContas();
+            return HttpStatus.NO_CONTENT;
         }
 
         }
