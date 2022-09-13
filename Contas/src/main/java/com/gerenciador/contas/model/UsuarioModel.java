@@ -41,5 +41,8 @@ public class UsuarioModel {
     @OneToMany(mappedBy = "usuario_id", cascade = CascadeType.ALL)
     private List<EnderecoModel> endereco_id;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "usuario_id", cascade = CascadeType.ALL)
+    private List<ContasAReceber> contas_id;
 
 }
