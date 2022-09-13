@@ -3,18 +3,19 @@ package com.gerenciador.contas.model;
 
 import com.gerenciador.contas.enumeration.Status;
 import com.gerenciador.contas.enumeration.TipoRecebimento;
-import lombok.AllArgsConstructor;
+import org.springframework.data.jpa.repository.Query;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Data
 @Entity
 @Table(name = "contasreceber")
-public class ContasAReceberModel {
+public class ContasAReceberModel{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -6,7 +6,6 @@ import com.gerenciador.contas.model.ContasAReceberModel;
 import com.gerenciador.contas.service.ContasAReceberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -46,19 +45,19 @@ public class ContasAReceberController {
         return contasAReceberService.mostrarPorStatus(status);
     }
 
-    @GetMapping(path = "/contasReceber/{tipo}")
-    public List<ContasAReceberModel> filtrarPorTipoDeRecebimento(@PathVariable TipoRecebimento tipo){
-        return contasAReceberService.mostrarPorTipoDeRebecimento(tipo);
-    }
+//    @GetMapping(path = "/contasReceber/{tipo}")
+//    public ContasAReceberModel filtrarPorTipoDeRecebimento(@PathVariable TipoRecebimento tipo){
+//        return contasAReceberService.mostrarPorTipoDeRebecimento(tipo);
+//    }
+//
+//    @GetMapping(path = "/contasReceber/{data}")
+//    public ContasAReceberModel filtrarPorDataDeVencimento(@PathVariable LocalDate localDate){
+//        return contasAReceberService.mostrarPorDataDeVencimento(localDate);
 
-    @GetMapping(path = "/contasReceber/{data}")
-    public List<ContasAReceberModel> filtrarPorDataDeVencimento(@PathVariable LocalDate localDate){
-        return contasAReceberService.mostrarPorDataDeVencimento(localDate);
-    }
 
-    @GetMapping(path = "/contasReceber/{id}")
-    public ResponseEntity deletarPorId(@PathVariable Long id){
-        return deletarPorId(id);
+    @DeleteMapping(path = "/contasReceber/{id}")
+    public HttpStatus deletarPorId(@PathVariable Long id){
+        return contasAReceberService.deletarConta(id);
     }
 
 

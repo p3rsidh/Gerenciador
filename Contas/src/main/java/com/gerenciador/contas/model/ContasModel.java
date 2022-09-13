@@ -3,22 +3,16 @@ package com.gerenciador.contas.model;
 
 import com.gerenciador.contas.enumeration.Status;
 import com.gerenciador.contas.enumeration.Tipo;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.data.jpa.repository.Query;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
+@Data
 @Entity
-@Table(name = "Contas")
+@Table(name = "contas")
 public class ContasModel {
 
     @Id

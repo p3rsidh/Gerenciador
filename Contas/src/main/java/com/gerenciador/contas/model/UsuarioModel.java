@@ -6,16 +6,14 @@ import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import javax.validation.constraints.Email;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
+@Data
 @Entity
 @Table(name = "usuario")
-public class UsuarioModel {
+public class UsuarioModel implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
