@@ -24,10 +24,10 @@ public class ContasAReceberService {
         LocalDate horaCadastro = LocalDate.now();
         if (contasAReceberModel.getStatus().equals(Status.PAGA)){
             contasAReceberModel.setDataDeRecebimento(horaCadastro);
-            contasAReceberModel.setValorTotal(factory.getPagamentos(contasAReceberModel.getDataDeVencimento(), contasAReceberModel.getDataDeRecebimento()).calcularValor(contasAReceberModel.getValorRecebimento()));
+            contasAReceberModel.setValorTotal(factory.getPagamentos(contasAReceberModel.getTipoRecebimento(),contasAReceberModel.getDataDeVencimento(), contasAReceberModel.getDataDeRecebimento()).calcularValor(contasAReceberModel.getValorRecebimento()));
         } if (contasAReceberModel.getStatus().equals(Status.VENCIDA)){
             contasAReceberModel.setDataDeRecebimento(contasAReceberModel.getDataDeVencimento().minusDays(1));
-            contasAReceberModel.setValorTotal(factory.getPagamentos(contasAReceberModel.getDataDeVencimento(), contasAReceberModel.getDataDeRecebimento()).calcularValor(contasAReceberModel.getValorRecebimento()));
+            contasAReceberModel.setValorTotal(factory.getPagamentos(contasAReceberModel.getTipoRecebimento(),contasAReceberModel.getDataDeVencimento(), contasAReceberModel.getDataDeRecebimento()).calcularValor(contasAReceberModel.getValorRecebimento()));
         }
 
         return contasAReceberRepository.save(contasAReceberModel);
@@ -61,10 +61,10 @@ public class ContasAReceberService {
                 LocalDate horaCadastro = LocalDate.now();
                 if (contasAReceberModel.getStatus().equals(Status.PAGA)){
                     contasAReceberModel.setDataDeRecebimento(horaCadastro);
-                    contasAReceberModel.setValorTotal(factory.getPagamentos(contasAReceberModel.getDataDeVencimento(), contasAReceberModel.getDataDeRecebimento()).calcularValor(contasAReceberModel.getValorRecebimento()));
+                    contasAReceberModel.setValorTotal(factory.getPagamentos(contasAReceberModel.getTipoRecebimento(),contasAReceberModel.getDataDeVencimento(), contasAReceberModel.getDataDeRecebimento()).calcularValor(contasAReceberModel.getValorRecebimento()));
                 } if (contasAReceberModel.getStatus().equals(Status.VENCIDA)){
                     contasAReceberModel.setDataDeRecebimento(contasAReceberModel.getDataDeVencimento().minusDays(1));
-                    contasAReceberModel.setValorTotal(factory.getPagamentos(contasAReceberModel.getDataDeVencimento(), contasAReceberModel.getDataDeRecebimento()).calcularValor(contasAReceberModel.getValorRecebimento()));
+                    contasAReceberModel.setValorTotal(factory.getPagamentos(contasAReceberModel.getTipoRecebimento(),contasAReceberModel.getDataDeVencimento(), contasAReceberModel.getDataDeRecebimento()).calcularValor(contasAReceberModel.getValorRecebimento()));
                 }
                 return contasAReceberRepository.save(contasAReceberModel);
             }

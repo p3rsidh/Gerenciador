@@ -8,7 +8,7 @@ public class PagamentoAluguelAdiantado implements Pagamentos{
     public BigDecimal calcularValor(BigDecimal valoRecebido) {
         BigDecimal desconto = BigDecimal.valueOf(0.05);
         BigDecimal valorDeDesconto = valoRecebido.multiply(desconto);
-        BigDecimal valorTotal = valorDeDesconto.subtract(valorDeDesconto);
+        BigDecimal valorTotal = valoRecebido.subtract(valorDeDesconto);
 
         return valorTotal;
 

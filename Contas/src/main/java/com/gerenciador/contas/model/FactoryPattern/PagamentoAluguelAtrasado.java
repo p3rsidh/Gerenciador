@@ -10,7 +10,7 @@ public class PagamentoAluguelAtrasado implements Pagamentos{
     public BigDecimal calcularValor(BigDecimal valoRecebido) {
         BigDecimal multa = BigDecimal.valueOf(0.035);
         BigDecimal valorDesconto = valoRecebido.multiply(multa);
-        BigDecimal valorTotal = valorDesconto.add(valorDesconto);
+        BigDecimal valorTotal = valoRecebido.add(valorDesconto);
         return valorTotal;
 
     }
