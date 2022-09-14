@@ -7,8 +7,6 @@ import javax.persistence.*;
 import javax.validation.constraints.Size;
 import javax.validation.constraints.Email;
 import java.io.Serializable;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
 import java.time.LocalDate;
 import java.util.List;
 

@@ -3,6 +3,7 @@ package com.gerenciador.contas.controller;
 import com.gerenciador.contas.model.CidadeModel;
 import com.gerenciador.contas.service.CidadeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,23 +16,23 @@ public class CidadeController {
     private CidadeService cidadeService;
 
     @GetMapping(path = "/cidades")
-    public List<CidadeModel> buscarTodos(){
-        return cidadeService.buscarTodas();
+    public ResponseEntity<List<CidadeModel>> buscarTodos(){
+        return ResponseEntity.ok(cidadeService.buscarTodas());
     }
 
     @GetMapping(path = "/cidades/{codigo}")
-    public Optional<CidadeModel> buscarPorId(@PathVariable Long codigo){
-        return cidadeService.buscarPorId(codigo);
+    public ResponseEntity<Optional<CidadeModel>> buscarPorId(@PathVariable Long codigo){
+        return ResponseEntity.ok(cidadeService.buscarPorId(codigo));
     }
 
     @PostMapping(path = "/cidades")
-    public CidadeModel cadastrarCidade(@RequestBody CidadeModel cidade){
-        return cidadeService.cadastrar(cidade);
+    public ResponseEntity<CidadeModel> cadastrarCidade(@RequestBody CidadeModel cidade){
+        return ResponseEntity.ok(cidadeService.cadastrar(cidade));
     }
 
     @PutMapping(path = "/cidade/{codigo}")
-    public CidadeModel alterarCidade(@RequestBody CidadeModel cidade){
-        return cidadeService.alterar(cidade);
+    public ResponseEntity<CidadeModel> alterarCidade(@RequestBody CidadeModel cidade){
+        return ResponseEntity.ok(cidadeService.alterar(cidade));
     }
 
     @DeleteMapping(path = "/cidade/{codigo}")

@@ -1,12 +1,10 @@
 package com.gerenciador.contas.model;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -19,7 +17,7 @@ public class EnderecoModel implements Serializable {
     private Long codigo;
 
     @Column
-    private String lagadouro;
+    private String logradouro;
 
     @Column
     private String bairro;

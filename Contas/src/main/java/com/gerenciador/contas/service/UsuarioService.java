@@ -9,9 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.HttpServerErrorException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -53,7 +55,13 @@ public class UsuarioService {
     }
 
     public List<UsuarioResponse> deletarPorId(Long id){
-        usuarioRepository.deleteById(id);
-        return verUsuarios();
+        if (usuarioRepository.findById(id).isPresent()) {
+            usuarioRepository.deleteById(id);
+            throw new HttpClientErrorException(HttpStatus.NO_CONTENT);
+        }else if (usuarioRepository.findAll().isEmpty()){
+            throw new HttpServerErrorException(HttpStatus.NOT_FOUND);
+        }else
+            throw new HttpServerErrorException(HttpStatus.NOT_FOUND);
     }
+
 }
