@@ -35,7 +35,7 @@ public class ContasAReceberController extends ExceptionHandlerContas {
         return ResponseEntity.ok(contasAReceberService.buscarUmaContaPorId(id));
     }
 
-    @PostMapping(path = "/contasReceber/{id}")
+    @PutMapping(path = "/contasReceber/{id}")
     public ResponseEntity< ContasAReceberModel> alterarConta(@PathVariable Long id, @RequestBody ContasAReceberModel contasAReceberModel, Factory factory){
         return ResponseEntity.ok(contasAReceberService.alterarConta(contasAReceberModel, id, factory));
     }
