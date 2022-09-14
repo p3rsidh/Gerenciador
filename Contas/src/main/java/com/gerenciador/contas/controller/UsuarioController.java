@@ -21,8 +21,10 @@ public class UsuarioController extends ExceptionHandlerUsuario {
     private UsuarioService usuarioService;
 
     @PostMapping(path = "/usuario")
-    public ResponseEntity<UsuarioModel> cadastrarUsuario(@RequestBody @Valid UsuarioModel usuarioModel) throws HttpClientErrorException.UnprocessableEntity {
-        return new ResponseEntity<>(usuarioService.adicionarUsuario(usuarioModel), HttpStatus.CREATED);
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseEntity<UsuarioModel> cadastrarUsuario(@RequestBody @Valid UsuarioModel usuarioModel) {
+        return ResponseEntity.ok(usuarioService.adicionarUsuario(usuarioModel));
+
     }
 
     @GetMapping(path = "/usuario")

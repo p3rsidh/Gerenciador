@@ -19,7 +19,7 @@ public class UsuarioModel implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long codigo;
 
-    @Column(nullable = false,unique = true)
+    @Column(nullable = false)
     @Size(min = 11, max = 11)
     private String CPF;
 

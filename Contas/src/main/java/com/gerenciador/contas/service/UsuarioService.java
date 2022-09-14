@@ -6,6 +6,7 @@ import com.gerenciador.contas.model.UsuarioModel;
 import com.gerenciador.contas.model.UsuarioResponse;
 import com.gerenciador.contas.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
@@ -23,7 +24,13 @@ public class UsuarioService {
     private UsuarioRepository usuarioRepository;
 
     public UsuarioModel adicionarUsuario(UsuarioModel usuarioModel){
-        return usuarioRepository.save(usuarioModel);
+        for (UsuarioModel usuarioModel1 : usuarioRepository.findAll()) {
+            if (usuarioModel.getCPF().equals(usuarioModel1.getCPF())){
+                throw new DuplicateKeyException(usuarioModel.getCPF());
+            }else
+                return usuarioRepository.save(usuarioModel);
+        }
+        return null;
     }
 
     public List<UsuarioResponse> verUsuarios(){

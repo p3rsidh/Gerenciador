@@ -2,6 +2,7 @@ package com.gerenciador.contas.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -29,6 +30,7 @@ public class EnderecoModel implements Serializable {
     private String pontoDeReferencia;
 
     @ManyToOne
+    @Nullable
     @JoinColumn(name = "usuario_id", referencedColumnName = "codigo")
     private UsuarioModel usuario_id;
 
