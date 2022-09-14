@@ -6,9 +6,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.HttpServerErrorException;
 
+import javax.naming.NotContextException;
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.ConstraintViolationException;
 import java.util.NoSuchElementException;
 
 @RestControllerAdvice
@@ -26,15 +27,22 @@ public class ExceptionHandlerContas {
         return new ResponseEntity<>("Resultado(s) não encontrado(s)", HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(HttpClientErrorException.class)
-    public ResponseEntity<String> resourceNotFound(HttpClientErrorException notFound, HttpServletRequest servletRequest){
-        return new ResponseEntity<>("Sua lista esta vazia", HttpStatus.NOT_FOUND);
+    @ExceptionHandler(HttpServerErrorException.class)
+    public ResponseEntity<String>
 
+    @ExceptionHandler(HttpClientErrorException.class)
+    public ResponseEntity<String> apagarMsg(HttpClientErrorException exception, HttpServletRequest servletRequest){
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
 
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<String> valorIncompativel(DataIntegrityViolationException exception, HttpServletRequest request){
         return new ResponseEntity<>("Os campos não podem ser nulos", HttpStatus.UNPROCESSABLE_ENTITY);
     }
 
+    @ExceptionHandler(NotContextException.class)
+    public ResponseEntity<String > valorNaoAceito(NotContextException exception, HttpServletRequest servletRequest){
+        return new ResponseEntity<>("O valor inserido não é aceito", HttpStatus.EXPECTATION_FAILED);
+    }
 }
