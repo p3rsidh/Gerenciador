@@ -2,6 +2,7 @@ package com.gerenciador.contas.controller;
 
 import com.gerenciador.contas.execption.ExceptionHandlerContas;
 import com.gerenciador.contas.model.ContasAReceberModel;
+import com.gerenciador.contas.model.FactoryPattern.Factory;
 import com.gerenciador.contas.service.ContasAReceberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,8 +21,8 @@ public class ContasAReceberController extends ExceptionHandlerContas {
 
     @PostMapping(path = "/contasReceber")
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<ContasAReceberModel> cadastrarConta(@RequestBody ContasAReceberModel contasAReceberModel){
-        return ResponseEntity.ok(contasAReceberService.adicionarConta(contasAReceberModel));
+    public ResponseEntity<ContasAReceberModel> cadastrarConta(@RequestBody ContasAReceberModel contasAReceberModel, Factory factory){
+        return ResponseEntity.ok(contasAReceberService.adicionarConta(contasAReceberModel, factory));
     }
 
     @GetMapping(path = "/contasReceber")
@@ -35,8 +36,8 @@ public class ContasAReceberController extends ExceptionHandlerContas {
     }
 
     @PostMapping(path = "/contasReceber/{id}")
-    public ResponseEntity< ContasAReceberModel> alterarConta(@PathVariable Long id, @RequestBody ContasAReceberModel contasAReceberModel){
-        return ResponseEntity.ok(contasAReceberService.alterarConta(contasAReceberModel, id));
+    public ResponseEntity< ContasAReceberModel> alterarConta(@PathVariable Long id, @RequestBody ContasAReceberModel contasAReceberModel, Factory factory){
+        return ResponseEntity.ok(contasAReceberService.alterarConta(contasAReceberModel, id, factory));
     }
 
     @GetMapping(path = "/contasReceber/buscar/{busca}")
@@ -51,9 +52,8 @@ public class ContasAReceberController extends ExceptionHandlerContas {
     }
 
     @DeleteMapping(path = "/contasReceber/{id}")
-
-    public ResponseEntity<ContasAReceberModel> deletarPorId(@PathVariable Long id) {
-        return new ResponseEntity<>(contasAReceberService.deletarConta(id), HttpStatus.NO_CONTENT);
+    public void deletarPorId(@PathVariable Long id) {
+        contasAReceberService.deletarConta(id);
     }
 
 

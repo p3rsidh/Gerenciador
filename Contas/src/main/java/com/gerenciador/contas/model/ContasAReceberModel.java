@@ -39,6 +39,9 @@ public class ContasAReceberModel implements Serializable{
     @Column
     private LocalDate dataDeRecebimento;
 
+    @Column
+    private BigDecimal valorTotal;
+
     @ManyToOne(optional = false)
     @JoinColumn(name = "usuario_id", referencedColumnName = "codigo")
     private UsuarioModel usuario_id;

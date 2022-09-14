@@ -28,11 +28,13 @@ public class ExceptionHandlerContas {
     }
 
     @ExceptionHandler(HttpServerErrorException.class)
-    public ResponseEntity<String>
+    public ResponseEntity<String> listaVazia(HttpServerErrorException exception, HttpServletRequest servletRequest){
+        return new ResponseEntity<>("Sua lista esta vazia",HttpStatus.NOT_FOUND);
+    }
 
     @ExceptionHandler(HttpClientErrorException.class)
     public ResponseEntity<String> apagarMsg(HttpClientErrorException exception, HttpServletRequest servletRequest){
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>("Seu objeto foi apagado",HttpStatus.NO_CONTENT);
     }
 
 

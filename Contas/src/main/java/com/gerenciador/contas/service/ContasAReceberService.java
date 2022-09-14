@@ -3,6 +3,7 @@ package com.gerenciador.contas.service;
 import com.gerenciador.contas.enumeration.Status;
 import com.gerenciador.contas.enumeration.TipoRecebimento;
 import com.gerenciador.contas.model.ContasAReceberModel;
+import com.gerenciador.contas.model.FactoryPattern.Factory;
 import com.gerenciador.contas.repository.ContasAReceberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,9 +20,16 @@ public class ContasAReceberService {
     @Autowired
     private ContasAReceberRepository contasAReceberRepository;
 
-    public ContasAReceberModel adicionarConta(ContasAReceberModel contasAReceberModel) {
+    public ContasAReceberModel adicionarConta(ContasAReceberModel contasAReceberModel, Factory factory) {
         LocalDate horaCadastro = LocalDate.now();
-        contasAReceberModel.setDataDeRecebimento(horaCadastro);
+        if (contasAReceberModel.getStatus().equals(Status.PAGA)){
+            contasAReceberModel.setDataDeRecebimento(horaCadastro);
+            contasAReceberModel.setValorTotal(factory.getPagamentos(contasAReceberModel.getDataDeVencimento(), contasAReceberModel.getDataDeRecebimento()).calcularValor(contasAReceberModel.getValorRecebimento()));
+        } if (contasAReceberModel.getStatus().equals(Status.VENCIDA)){
+            contasAReceberModel.setDataDeRecebimento(contasAReceberModel.getDataDeVencimento().minusDays(1));
+            contasAReceberModel.setValorTotal(factory.getPagamentos(contasAReceberModel.getDataDeVencimento(), contasAReceberModel.getDataDeRecebimento()).calcularValor(contasAReceberModel.getValorRecebimento()));
+        }
+
         return contasAReceberRepository.save(contasAReceberModel);
     }
 
@@ -43,13 +51,21 @@ public class ContasAReceberService {
                 throw new NoSuchElementException();
         }
 
-        public ContasAReceberModel alterarConta(ContasAReceberModel contasAReceberModel, Long id) {
+        public ContasAReceberModel alterarConta(ContasAReceberModel contasAReceberModel, Long id, Factory factory) {
 
            Optional<ContasAReceberModel> conta = contasAReceberRepository.findById(id);
 
             if (contasAReceberRepository.findAll().isEmpty()){
                 throw new HttpClientErrorException(HttpStatus.NOT_FOUND);
             } else if(conta != null) {
+                LocalDate horaCadastro = LocalDate.now();
+                if (contasAReceberModel.getStatus().equals(Status.PAGA)){
+                    contasAReceberModel.setDataDeRecebimento(horaCadastro);
+                    contasAReceberModel.setValorTotal(factory.getPagamentos(contasAReceberModel.getDataDeVencimento(), contasAReceberModel.getDataDeRecebimento()).calcularValor(contasAReceberModel.getValorRecebimento()));
+                } if (contasAReceberModel.getStatus().equals(Status.VENCIDA)){
+                    contasAReceberModel.setDataDeRecebimento(contasAReceberModel.getDataDeVencimento().minusDays(1));
+                    contasAReceberModel.setValorTotal(factory.getPagamentos(contasAReceberModel.getDataDeVencimento(), contasAReceberModel.getDataDeRecebimento()).calcularValor(contasAReceberModel.getValorRecebimento()));
+                }
                 return contasAReceberRepository.save(contasAReceberModel);
             }
             throw new NoSuchElementException();
@@ -95,12 +111,11 @@ public class ContasAReceberService {
 
 
 
-        public ContasAReceberModel deletarConta(Long id){
+        public void deletarConta(Long id){
             int tamanhoLista = contasAReceberRepository.findAll().size();
             if (tamanhoLista > 0 && contasAReceberRepository.findById(id).isPresent() ){
                  contasAReceberRepository.deleteById(id);
                  throw new HttpClientErrorException(HttpStatus.NO_CONTENT);
-                // return new DeleteMessage(HttpStatus.NO_CONTENT,"Objeto Apagado");
             }else if (tamanhoLista > 0 && !(contasAReceberRepository.findById(id).isPresent())) {
                 throw new NoSuchElementException();
             } else {
